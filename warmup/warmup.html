@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="page">
+        <div class="element element-1"></div>
+        <div class="element element-2"></div>
+        <div class="element element-3"></div>
+        <div class="element element-4"></div>
+        <div class="element element-5"></div>
+        <div class="element element-6"></div>
+        <div class="element element-7"></div>
+        <div class="element element-8"></div>
+    </section>
+
+
+
+
+    <script>
+        const kolory = ["rgb(0, 255, 0)", "rgb(173, 216, 230)", "rgb(255, 255, 0)", "rgb(255, 0, 0)", "rgb(0, 138, 0)", "rgb(36, 94, 114)", "rgb(199, 63, 147)", "rgb(32, 148, 132)"];
+        const colorTarget = "rgb(255, 255, 0)";
+        const player = {
+            points: 0,
+            clickCounter: 0
+        };
+
+
+
+        // function zmianaKoloru() {
+        //     if (klikniecia % 2 == 0) {
+        //         document.getElementById("e1").style.backgroundColor = "black";
+        //     } else {
+        //         document.getElementById("e1").style.backgroundColor = "red";
+        //     }
+        // }
+
+
+
+        // document.getElementById("e1").onclick = function() {
+        //     zmianaKoloru();
+        //     klikniecia++;
+        //     console.log(klikniecia);
+        // }
+        const elements = document.querySelectorAll(".element");
+        elements.forEach((element) => {
+            element.addEventListener("click", () => {
+                elementClickHandler(element);
+                showStats();
+            });
+        });
+
+        function checkColorValidality(element) {
+
+            return element.style.backgroundColor === colorTarget;
+        }
+
+        function addPoint() {
+            player.points++;
+        }
+
+        function increaseClicksCounter() {
+            player.clickCounter++;
+        }
+
+        function showStats() {
+            console.log(`clicks: ${player.clickCounter} points: ${player.points}`);
+        }
+
+
+        function elementClickHandler(element) {
+            increaseClicksCounter();
+            if (!checkColorValidality(element)) {
+                return;
+            }
+
+            addPoint();
+            shuffle(kolory);
+            updateElementsColors();
+        }
+
+
+
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+
+        function updateElementsColors() {
+            for (let i = 0; i < kolory.length; i++) {
+                elements[i].style.backgroundColor = kolory[i];
+
+            }
+        }
+        updateElementsColors();
+    </script>
+</body>
+
+
+</html>
